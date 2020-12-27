@@ -56,9 +56,7 @@ def reset():
 
 def filter_data(fn):
     raise NotImplementedError()
-    pass
 
 
 def sample():
     raise NotImplementedError()
-    pass

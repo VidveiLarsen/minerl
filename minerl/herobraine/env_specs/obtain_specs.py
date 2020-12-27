@@ -1,4 +1,4 @@
-from minerl.herobraine.env_specs.simple_env_spec import SimpleEnvSpec
+from minerl.herobraine.env_specs.simple_env_spec import SimpleEnvSpec, Resolution
 from minerl.herobraine.hero import handlers, AgentHandler
 from typing import List
 from gym import spaces
@@ -15,16 +15,19 @@ class Obtain(SimpleEnvSpec):
     def __init__(self,
                  target_item,
                  dense,
-                 reward_schedule,
+                 reward_schedule: dict,
+                 resolution : Resolution = Resolution.LOW,
                  max_episode_steps=6000):
         self.target_item = target_item
         self.dense = dense
         suffix = snake_to_camel(self.target_item)
-        dense_suffix = "Dense" if self.dense else ""
+        suffix += "Dense" if self.dense else ""
+        suffix += "HighRes" if resolution == Resolution.HIGH else ""
         self.reward_schedule = reward_schedule
         super().__init__(
-            name="MineRLObtain{}{}-v0".format(suffix, dense_suffix),
-            xml="obtain{}{}.xml".format(suffix, dense_suffix),
+            name="MineRLObtain{}-v0".format(suffix),
+            xml="obtain{}.xml".format(suffix),
+            resolution=resolution,
             max_episode_steps=max_episode_steps,
         )
 
@@ -95,7 +98,7 @@ class Obtain(SimpleEnvSpec):
 
 
 class ObtainDiamond(Obtain):
-    def __init__(self, dense):
+    def __init__(self, dense, *args, **kwargs):
         super(ObtainDiamond, self).__init__(
             target_item='diamond',
             dense=dense,
@@ -113,7 +116,8 @@ class ObtainDiamond(Obtain):
                 "iron_pickaxe": 256,
                 "diamond": 1024
             },
-            max_episode_steps=18000
+            max_episode_steps=18000,
+            *args, **kwargs
         )
 
     def is_from_folder(self, folder: str) -> bool:
@@ -164,7 +168,7 @@ item are given here::
 
 
 class ObtainIronPickaxe(Obtain):
-    def __init__(self, dense):
+    def __init__(self, dense, *args, **kwargs):
         super(ObtainIronPickaxe, self).__init__(
             target_item='iron_pickaxe',
             dense=dense,
@@ -180,7 +184,8 @@ class ObtainIronPickaxe(Obtain):
                 "iron_ore": 64,
                 "iron_ingot": 128,
                 "iron_pickaxe": 256,
-            }
+            },
+            *args, **kwargs
         )
 
     def is_from_folder(self, folder: str) -> bool:

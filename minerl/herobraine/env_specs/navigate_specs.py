@@ -3,17 +3,18 @@ from typing import List
 
 import minerl.herobraine
 import minerl.herobraine.hero.handlers as handlers
-from minerl.herobraine.env_specs.simple_env_spec import SimpleEnvSpec
+from minerl.herobraine.env_specs.simple_env_spec import SimpleEnvSpec, Resolution
 
 
 class Navigate(SimpleEnvSpec):
-    def __init__(self, dense, extreme):
+    def __init__(self, dense: bool, extreme: bool, resolution: Resolution):
         suffix = 'Extreme' if extreme else ''
         suffix += 'Dense' if dense else ''
+        suffix += 'HighRes' if resolution == Resolution.HIGH else ''
         name = 'MineRLNavigate{}-v0'.format(suffix)
         xml = 'navigation{}.xml'.format(suffix)
         self.dense, self.extreme = dense, extreme
-        super().__init__(name, xml, max_episode_steps=6000)
+        super().__init__(name, xml, resolution, max_episode_steps=6000)
 
     def is_from_folder(self, folder: str) -> bool:
         return folder == 'navigateextreme' if self.extreme else folder == 'navigate'

@@ -29,9 +29,10 @@ The agent begins in a forest biome (near many trees) with an iron axe for cuttin
 
 
 class Treechop(ses.SimpleEnvSpec):
-    def __init__(self):
+    def __init__(self, resolution: ses.Resolution = ses.Resolution.LOW):
         super().__init__(
             name='MineRLTreechop-v0', xml='treechop.xml',
+            resolution = resolution,
             max_episode_steps=8000, reward_threshold=64.0)
 
     def is_from_folder(self, folder: str) -> bool:

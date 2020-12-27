@@ -8,7 +8,17 @@ from minerl.herobraine.hero.mc import INVERSE_KEYMAP
 from minerl.herobraine.env_spec import EnvSpec
 
 from typing import List
+from enum import Enum
 
+class Resolution(Enum):
+    """[Resolution constants]
+
+    Args:
+        Enum ([LOW]): [64 x 64 resolution]
+        Enum ([HIGH]):[256 x 128 resolution]
+    """
+    LOW = 1
+    HIGH = 2
 
 class SimpleEnvSpec(EnvSpec, ABC):
     """
@@ -25,8 +35,14 @@ class SimpleEnvSpec(EnvSpec, ABC):
         "attack"
     ]
 
-    def __init__(self, name, xml, *args, **kwargs):
-        self.resolution = tuple((64, 64))
+    def __init__(self, name, xml, resolution: Resolution = Resolution.LOW, *args, **kwargs):
+        if resolution == Resolution.LOW:
+            self.resolution = tuple((64, 64))
+        elif resolution == Resolution.HIGH:
+            self.resolution = tuple((256,128))    
+        else:
+            raise ValueError(f"Invalid resolution {resolution}. 'Resolution.LOW:' or 'Resolution.HIGH' supported, corresponding to "
+                            " (64,64) and (256,128)")
         super().__init__(name, xml, *args, **kwargs)
 
     def create_observables(self) -> List[minerl.herobraine.hero.AgentHandler]:

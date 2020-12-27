@@ -53,14 +53,14 @@ class POVObservation(AgentHandler):
         self.video_resolution = video_resolution
         space = None
         if include_depth:
-            space = spaces.Box(0, 255, list(video_resolution)[::-1] + [4], dtype=np.uint8)
+            space = spaces.Box(0, 255, list(video_resolution) + [4], dtype=np.uint8)
             self.video_depth = 4
 
         else:
-            space = spaces.Box(0, 255, list(video_resolution)[::-1] + [3], dtype=np.uint8)
+            space = spaces.Box(0, 255, list(video_resolution) + [3], dtype=np.uint8)
             self.video_depth = 3
-        self.video_height = video_resolution[0]
-        self.video_width = video_resolution[1]
+        self.video_width = video_resolution[0]
+        self.video_height = video_resolution[1]
 
         super().__init__(space)
 

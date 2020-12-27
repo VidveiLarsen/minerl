@@ -3,6 +3,7 @@ import collections
 import gym
 
 from minerl.herobraine.env_spec import EnvSpec
+from minerl.herobraine.env_specs.simple_env_spec import Resolution
 from minerl.herobraine.env_specs.treechop_specs import Treechop
 from minerl.herobraine.env_specs.navigate_specs import Navigate
 from minerl.herobraine.env_specs.obtain_specs import ObtainDiamond, ObtainDiamondSurvival, ObtainIronPickaxe, Obtain, ObtainDiamondDebug
@@ -10,21 +11,32 @@ from minerl.herobraine.wrappers import Obfuscated, Vectorized
 import minerl.data.version
 import os
 
-
 # Must load non-obfuscated envs first!
 # Publish.py depends on this order for black-listing streams
 MINERL_TREECHOP_V0 = Treechop()
+MINERL_TREECHOP_HIGHRES_V0 = Treechop(Resolution.HIGH)
 
-MINERL_NAVIGATE_V0 = Navigate(dense=False, extreme=False)
-MINERL_NAVIGATE_EXTREME_V0 = Navigate(dense=False, extreme=True)
-MINERL_NAVIGATE_DENSE_V0 = Navigate(dense=True, extreme=False)
-MINERL_NAVIGATE_DENSE_EXTREME_V0 = Navigate(dense=True, extreme=True)
+MINERL_NAVIGATE_V0 = Navigate(dense=False, extreme=False, resolution=Resolution.LOW)
+MINERL_NAVIGATE_EXTREME_V0 = Navigate(dense=False, extreme=True, resolution=Resolution.LOW)
+MINERL_NAVIGATE_DENSE_V0 = Navigate(dense=True, extreme=False, resolution=Resolution.LOW)
+MINERL_NAVIGATE_DENSE_EXTREME_V0 = Navigate(dense=True, extreme=True, resolution=Resolution.LOW)
+
+MINERL_NAVIGATE_HIGHRES_V0 = Navigate(dense=False, extreme=False, resolution=Resolution.HIGH)
+MINERL_NAVIGATE_EXTREME_HIGHRES_V0 = Navigate(dense=False, extreme=True, resolution=Resolution.HIGH)
+MINERL_NAVIGATE_DENSE_HIGHRES_V0 = Navigate(dense=True, extreme=False, resolution=Resolution.HIGH)
+MINERL_NAVIGATE_DENSE_EXTREME_HIGHRES_V0 = Navigate(dense=True, extreme=True, resolution=Resolution.HIGH)
 
 MINERL_OBTAIN_DIAMOND_V0 = ObtainDiamond(dense=False)
 MINERL_OBTAIN_DIAMOND_DENSE_V0 = ObtainDiamond(dense=True)
 
+MINERL_OBTAIN_DIAMOND_HIGHRES_V0 = ObtainDiamond(dense=False, resolution=Resolution.HIGH)
+MINERL_OBTAIN_DIAMOND_DENSE_HIGHRES_V0 = ObtainDiamond(dense=True, resolution=Resolution.HIGH)
+
 MINERL_OBTAIN_IRON_PICKAXE_V0 = ObtainIronPickaxe(dense=False)
 MINERL_OBTAIN_IRON_PICKAXE_DENSE_V0 = ObtainIronPickaxe(dense=True)
+
+MINERL_OBTAIN_IRON_PICKAXE_HIGHRES_V0 = ObtainIronPickaxe(dense=False, resolution=Resolution.HIGH)
+MINERL_OBTAIN_IRON_PICKAXE_DENSE_HIGHRES_V0 = ObtainIronPickaxe(dense=True, resolution=Resolution.HIGH)
 
 # # prototype envs
 # # TODO: Actually make these work and correct, it'll be good to release these.

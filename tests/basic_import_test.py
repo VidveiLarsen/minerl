@@ -18,6 +18,18 @@ def main():
     spec = gym.spec('MineRLObtainIronPickaxeDense-v0')
     spec = gym.spec('MineRLObtainDiamond-v0')
     spec = gym.spec('MineRLObtainDiamondDense-v0')
+    
+    print("Testing HighRes")
+    spec = gym.spec('MineRLNavigateHighRes-v0')
+    spec = gym.spec('MineRLNavigateDenseHighRes-v0')
+    spec = gym.spec('MineRLNavigateExtremeHighRes-v0')
+    spec = gym.spec('MineRLNavigateExtremeDenseHighRes-v0')
+    spec = gym.spec('MineRLObtainIronPickaxeHighRes-v0') 
+    spec = gym.spec('MineRLObtainIronPickaxeDenseHighRes-v0')
+    spec = gym.spec('MineRLObtainDiamondHighRes-v0')
+    spec = gym.spec('MineRLObtainDiamondDenseHighRes-v0')
+
+
 
     print("Test complete.")
     return True
