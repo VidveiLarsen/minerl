@@ -15,7 +15,7 @@ class Resolution(Enum):
 
     Args:
         Enum ([LOW]): [64 x 64 resolution]
-        Enum ([HIGH]):[256 x 128 resolution]
+        Enum ([HIGH]):[128 height, 256 width] 
     """
     LOW = 1
     HIGH = 2
@@ -39,10 +39,10 @@ class SimpleEnvSpec(EnvSpec, ABC):
         if resolution == Resolution.LOW:
             self.resolution = tuple((64, 64))
         elif resolution == Resolution.HIGH:
-            self.resolution = tuple((256,128))    
+            self.resolution = tuple((128,256))    
         else:
             raise ValueError(f"Invalid resolution {resolution}. 'Resolution.LOW:' or 'Resolution.HIGH' supported, corresponding to "
-                            " (64,64) and (256,128)")
+                            " (64,64) and (128,256)")
         super().__init__(name, xml, *args, **kwargs)
 
     def create_observables(self) -> List[minerl.herobraine.hero.AgentHandler]:

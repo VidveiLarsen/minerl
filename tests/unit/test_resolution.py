@@ -21,4 +21,4 @@ def test_high_res():
     obs = env.reset()
     env.close()
     
-    assert obs["pov"].shape == (256,128,3)
+    assert obs["pov"].shape == (128,256,3)
